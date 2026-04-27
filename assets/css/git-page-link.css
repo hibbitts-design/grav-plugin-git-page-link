@@ -1,0 +1,49 @@
+/* ============================================================
+   Git Page Link — default styles
+   All classes are namespaced with .gpl- to avoid collisions
+   ============================================================ */
+
+.gpl-wrapper {
+  display: block;
+  margin: 1rem 0;
+}
+
+/* Shared layout base */
+.gpl-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: inherit;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* Button variant — structural approach drawn from Quark/Spectre */
+.gpl-link--button {
+  padding: 0.25rem 0.5rem;
+  color: #454d5d;
+  background: #fff;
+  border: 0.05rem solid #bcc3ce;
+  border-radius: 0.1rem;
+  text-decoration: none;
+  transition: background .2s, border-color .2s, box-shadow .2s, color .2s;
+}
+
+.gpl-link--button:hover {
+  background: #f8f9fa;
+  border-color: #8f97a4;
+  text-decoration: none;
+}
+
+.gpl-link--button:focus-visible {
+  box-shadow: 0 0 0 0.1rem rgba(88, 110, 147, 0.2);
+}
+
+/* Plain variant — no overrides; colour and decoration come entirely from the theme */
+
+.gpl-icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  fill: currentColor;
+}

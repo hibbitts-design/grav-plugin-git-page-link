@@ -1,0 +1,135 @@
+name: Git Page Link
+version: 0.9.0
+description: For open authoring and OER workflows – pairs with the Git Sync plugin to connect Grav pages to their content Git repository.
+icon: pencil
+author:
+  name: HibbittsDesign.org
+  email: paul@hibbittsdesign.org
+  url: https://hibbittsdesign.org
+homepage: https://github.com/paulhibbitts/grav-plugin-git-page-link
+keywords: git, edit, view, github, gitlab, codeberg, link, git-sync
+bugs: https://github.com/paulhibbitts/grav-plugin-git-page-link/issues
+license: MIT
+
+dependencies:
+  - { name: grav, version: '>=1.7.0' }
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin Status
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+
+    link_mode:
+      type: select
+      label: Link Mode
+      default: edit
+      options:
+        edit: "Edit page in Git repository"
+        view: "View page in Git repository"
+        repo: "View Git repository"
+
+    link_text:
+      type: text
+      label: Link Label
+      default: "Edit this Page"
+      placeholder: "Edit this Page"
+
+    link_title:
+      type: text
+      label: Link Tooltip
+      help: "Tooltip text shown on hover (title attribute). Leave empty for no tooltip."
+      default: ""
+      placeholder: "e.g. Edit this page on GitHub"
+
+    link_position:
+      type: select
+      label: Link Position
+      default: bottom
+      options:
+        top: "Top of content"
+        bottom: "Bottom of content"
+        both: "Both top and bottom"
+
+    link_new_tab:
+      type: toggle
+      label: Open Link in New Tab
+      help: "Open the link in a new browser tab. Disable to use default browser behaviour, or to let the External Links plugin manage this globally."
+      highlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+
+    link_style:
+      type: select
+      label: Link Style
+      default: plain
+      options:
+        button: "Button"
+        plain: "Plain text link"
+
+    dark_mode:
+      type: toggle
+      label: Dark Mode Support
+      help: "Load dark mode CSS for the button style. Enable only if your theme supports dark mode."
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+
+    icon_type:
+      type: select
+      label: Link Icon
+      default: pencil
+      options:
+        pencil: "Pencil (built-in SVG)"
+        doc: "Document (built-in SVG)"
+        branch: "Git branch (built-in SVG)"
+        folder: "Folder (built-in SVG)"
+        custom: "Custom SVG"
+        none: "No icon"
+
+    icon_custom:
+      type: textarea
+      label: Custom SVG
+      help: "Paste a full <svg> element or just the inner path content. Only used when Link Icon is set to Custom SVG."
+      default: ""
+      rows: 4
+
+    page_types:
+      type: array
+      label: Show on Page Types
+      help: "Leave empty to show on all page types"
+
+    section_advanced:
+      type: section
+      title: Advanced
+      underline: true
+
+    git_repository_url:
+      type: text
+      label: Custom Repository URL
+      help: "Override the repository URL from Git Sync, or set manually if Git Sync is not in use. Leave empty to use Git Sync automatically."
+      default: ""
+      placeholder: "e.g. https://github.com/user/repo"
+
+    git_branch:
+      type: text
+      label: Custom Branch
+      help: "Override the branch from Git Sync, or set manually if Git Sync is not in use. Leave empty to use Git Sync automatically."
+      default: ""
+      placeholder: "e.g. main"

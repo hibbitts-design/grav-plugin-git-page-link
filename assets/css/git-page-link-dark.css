@@ -1,0 +1,43 @@
+/* ============================================================
+   Git Page Link — dark mode styles (loaded only when
+   the dark_mode plugin option is enabled)
+
+   Two mechanisms are covered:
+   - @media (prefers-color-scheme: dark) — Quark, Quark2, and
+     other themes that follow the OS preference
+   - :where(.dark, .dark *) — Helios and other Tailwind v4 themes
+     that toggle dark mode via a .dark CSS class on an ancestor
+   ============================================================ */
+
+@media (prefers-color-scheme: dark) {
+  .gpl-link--button {
+    color: #cbd5e1;
+    background: #1e2533;
+    border-color: #3d4a5c;
+  }
+
+  .gpl-link--button:hover {
+    background: #263044;
+    border-color: #556070;
+  }
+
+  .gpl-link--button:focus-visible {
+    box-shadow: 0 0 0 0.1rem rgba(148, 163, 184, 0.25);
+  }
+}
+
+/* Class-based dark mode (e.g. Helios / Tailwind v4 themes) */
+:where(.dark, .dark *) .gpl-link--button {
+  color: #cbd5e1;
+  background: #1e2533;
+  border-color: #3d4a5c;
+}
+
+:where(.dark, .dark *) .gpl-link--button:hover {
+  background: #263044;
+  border-color: #556070;
+}
+
+:where(.dark, .dark *) .gpl-link--button:focus-visible {
+  box-shadow: 0 0 0 0.1rem rgba(148, 163, 184, 0.25);
+}
