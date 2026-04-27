@@ -4,11 +4,11 @@
 
 <p><em>Connect your Grav pages directly to their Markdown source in a Git repository – for open authoring and OER workflows.</em></p>
 
-[![Latest Release](https://img.shields.io/github/v/release/paulhibbitts/grav-plugin-git-page-link?style=flat-square&label=Release)](https://github.com/paulhibbitts/grav-plugin-git-page-link/releases/latest) [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://github.com/paulhibbitts/grav-plugin-git-page-link/blob/master/LICENSE) [![PHP](https://img.shields.io/badge/PHP-%3E%3D8.0-8892BF?style=flat-square&logo=php&logoColor=white)](https://learn.getgrav.org/17/basics/requirements)
+[![Latest Release](https://img.shields.io/github/v/release/hibbitts-design/grav-plugin-git-page-link?style=flat-square&label=Release)](https://github.com/hibbitts-design/grav-plugin-git-page-link/releases/latest) [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://github.com/hibbitts-design/grav-plugin-git-page-link/blob/master/LICENSE) [![PHP](https://img.shields.io/badge/PHP-%3E%3D8.0-8892BF?style=flat-square&logo=php&logoColor=white)](https://learn.getgrav.org/17/basics/requirements)
 
 </div>
 
-For open authoring and OER workflows – pairs with the [Git Sync plugin](https://github.com/trilbymedia/grav-plugin-git-sync) to add a link to Grav pages that connects visitors directly to the content Git repository, either to the page's source Markdown file or to the repository root. Invite readers to suggest edits, view page source, or access the raw Markdown files for reuse and adaptation – contributors with repository access land on the edit interface, while everyone else sees the file in the repository viewer. GitHub, Codeberg, and other Git-compatible hosting services are supported.
+For open authoring and OER workflows – pairs with the [Git Sync plugin](https://github.com/trilbymedia/grav-plugin-git-sync) to add a link to Grav pages that connects visitors directly to the content Git repository, either to the page's source Markdown file or to the repository root. A single link serves both audiences: contributors with repository access land on the edit interface, while everyone else sees the file in the repository viewer – making it easy to invite readers to suggest edits, view page source, or access the raw Markdown files for reuse and adaptation. GitHub, Codeberg, and other Git-compatible hosting services are supported.
 
 This plugin is the successor to the "View/Edit Page in Git Repository" feature originally built into the [Open Publishing Space](https://github.com/hibbitts-design/grav-skeleton-open-publishing-space) skeleton – extracting that capability from the Quark Open Publishing theme into a standalone plugin compatible with a wide range of existing Grav themes, including Quark2.
 
@@ -42,7 +42,7 @@ bin/gpm install git-page-link
 
 **Manual install:**
 
-1. Download the plugin from [GitHub](https://github.com/paulhibbitts/grav-plugin-git-page-link)
+1. Download the plugin from [GitHub](https://github.com/hibbitts-design/grav-plugin-git-page-link)
 2. Unzip and rename the folder to `git-page-link`
 3. Copy the folder to `user/plugins/git-page-link`
 
@@ -86,8 +86,8 @@ Special thanks to [tucho235](https://github.com/tucho235) for the [Copy as Markd
 
 - Follow [@hibbittsdesign@mastodon.social](https://mastodon.social/@hibbittsdesign) on Mastodon for updates
 - Join the [Grav Discord](https://chat.getgrav.org) for community support
-- Add a ⭐️ [star on GitHub](https://github.com/paulhibbitts/grav-plugin-git-page-link) to support the project
-- For bugs or feature requests, [open an issue](https://github.com/paulhibbitts/grav-plugin-git-page-link/issues) on GitHub
+- Add a ⭐️ [star on GitHub](https://github.com/hibbitts-design/grav-plugin-git-page-link) to support the project
+- For bugs or feature requests, [open an issue](https://github.com/hibbitts-design/grav-plugin-git-page-link/issues) on GitHub
 
 ## License
 

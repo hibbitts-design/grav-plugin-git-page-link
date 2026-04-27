@@ -6,9 +6,9 @@ author:
   name: HibbittsDesign.org
   email: paul@hibbittsdesign.org
   url: https://hibbittsdesign.org
-homepage: https://github.com/paulhibbitts/grav-plugin-git-page-link
+homepage: https://github.com/hibbitts-design/grav-plugin-git-page-link
 keywords: git, edit, view, github, gitlab, codeberg, link, git-sync
-bugs: https://github.com/paulhibbitts/grav-plugin-git-page-link/issues
+bugs: https://github.com/hibbitts-design/grav-plugin-git-page-link/issues
 license: MIT
 
 dependencies:
