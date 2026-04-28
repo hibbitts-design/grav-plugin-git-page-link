@@ -2,7 +2,7 @@
 
 # 🔗 Git Page Link Plugin
 
-<p><em>Connect your Grav pages directly to their Markdown source in a Git repository – for open authoring and OER workflows.</em></p>
+<p><em>Enable open authoring and OER workflows by linking Grav pages directly to editable Markdown source files in GitHub, Codeberg, and other Git hosts.</em></p>
 
 [![Latest Release](https://img.shields.io/github/v/release/hibbitts-design/grav-plugin-git-page-link?style=flat-square&label=Release)](https://github.com/hibbitts-design/grav-plugin-git-page-link/releases/latest) [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://github.com/hibbitts-design/grav-plugin-git-page-link/blob/master/LICENSE) [![PHP](https://img.shields.io/badge/PHP-%3E%3D8.0-8892BF?style=flat-square&logo=php&logoColor=white)](https://learn.getgrav.org/17/basics/requirements)
 

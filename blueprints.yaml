@@ -1,6 +1,6 @@
 name: Git Page Link
 version: 0.9.0
-description: For open authoring and OER workflows – pairs with the Git Sync plugin to connect Grav pages to their content Git repository.
+description: Enable open authoring and OER workflows by linking Grav pages directly to editable Markdown source files in GitHub, Codeberg, and other Git hosts. Works with or without the Git Sync plugin.
 icon: pencil
 author:
   name: HibbittsDesign.org
