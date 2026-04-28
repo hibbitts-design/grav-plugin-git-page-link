@@ -210,6 +210,39 @@ class GitPageLinkPlugin extends Plugin
             return '';
         }
 
+        if ($iconType === 'svg-icons') {
+            $iconName = trim((string) $config->get('icon_name', ''));
+            if ($iconName === '') {
+                return $this->buildIcon('pencil', $config);
+            }
+            try {
+                $locator = $this->grav['locator'];
+                // svgicons:// stream is registered by the SVG Icons plugin; degrade silently if absent.
+                if (!method_exists($locator, 'schemeExists') || !$locator->schemeExists('svgicons')) {
+                    return $this->buildIcon('pencil', $config);
+                }
+                // Normalise: ensure .svg extension.
+                $iconPath = preg_match('/\.svg$/i', $iconName) ? $iconName : $iconName . '.svg';
+                $path = $locator->findResource('svgicons://' . $iconPath, true);
+                if (!$path || !file_exists($path)) {
+                    return $this->buildIcon('pencil', $config);
+                }
+                $svg = (string) file_get_contents($path);
+                if ($svg === '') {
+                    return $this->buildIcon('pencil', $config);
+                }
+                // Inject gpl-icon class; handle SVGs with or without an existing class attribute.
+                if (preg_match('/(<svg[^>]*)\bclass="/', $svg)) {
+                    $svg = preg_replace('/(<svg[^>]*class=")/', '$1gpl-icon ', $svg, 1);
+                } else {
+                    $svg = preg_replace('/<svg\b/', '<svg class="gpl-icon"', $svg, 1);
+                }
+                return $svg;
+            } catch (\Throwable $e) {
+                return $this->buildIcon('pencil', $config);
+            }
+        }
+
         if ($iconType === 'custom') {
             $customSvg = trim((string) $config->get('icon_custom', ''));
             if ($customSvg === '') {

@@ -100,8 +100,16 @@ form:
         doc: "Document (built-in SVG)"
         branch: "Git branch (built-in SVG)"
         folder: "Folder (built-in SVG)"
+        svg-icons: "SVG Icons Plugin"
         custom: "Custom SVG"
         none: "No icon"
+
+    icon_name:
+      type: text
+      label: SVG Icons Plugin Icon Name
+      help: "Icon path from the SVG Icons Plugin (e.g. tabler/pencil.svg, heroicons/outline/pencil-square.svg). Only used when Link Icon is set to SVG Icons Plugin."
+      default: ""
+      placeholder: "e.g. tabler/pencil.svg"
 
     icon_custom:
       type: textarea

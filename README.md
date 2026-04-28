@@ -18,7 +18,7 @@ This plugin is the successor to the "View/Edit Page in Git Repository" feature o
 - Renders a link at the top, bottom, or both ends of page content
 - Link label is fully customisable – use "Edit this Page", "View Source", "Open on GitHub", or any text
 - Styled as a plain text link (default) or a button
-- Displays a built-in pencil, document, Git branch, or folder SVG icon, a custom SVG, or no icon
+- Displays a built-in pencil, document, Git branch, or folder SVG icon, any icon from the SVG Icons plugin, a custom SVG, or no icon
 - Optionally opens in a new tab, or defers to the browser default or the External Links plugin
 - Restricts display to specific page templates; leave the Page Types setting empty to show on all pages
 - Repository URL is auto-detected from Git Sync, or set manually in the Advanced settings if Git Sync is not in use
@@ -68,7 +68,8 @@ git-page-link:
 | Open Link in New Tab | Enabled | Open the link in a new browser tab; disable to use default browser behaviour or defer to the External Links plugin |
 | Link Style | Plain text link | Display as a plain text link or a button |
 | Dark Mode Support | Disabled | Load dark mode CSS for the button style; enable only if your theme supports dark mode |
-| Link Icon | Pencil | Icon shown beside the link label: Pencil, Document, Git branch, Folder, Custom SVG, or None |
+| Link Icon | Pencil | Icon shown beside the link label: Pencil, Document, Git branch, Folder, SVG Icons plugin, Custom SVG, or None |
+| SVG Icons Plugin Icon Name | _(empty)_ | Icon path from the SVG Icons plugin (e.g. `tabler/pencil.svg`, `heroicons/outline/pencil-square.svg`); used only when Link Icon is set to SVG Icons plugin; falls back to the built-in pencil if the plugin is not installed or the icon is not found |
 | Custom SVG | _(empty)_ | Full `<svg>` element or inner path content; used only when Link Icon is set to Custom SVG |
 | Show on Page Types | _(empty)_ | Restrict the link to specific page templates; leave empty to show on all pages |
 | Custom Repository URL | _(empty)_ | Override the repository URL from Git Sync, or set manually if Git Sync is not in use; leave empty to use Git Sync automatically |

@@ -6,7 +6,8 @@ link_position: bottom    # top | bottom | both
 link_new_tab: true       # open link in a new browser tab
 link_style: plain        # button | plain
 dark_mode: false         # load dark mode CSS for the button style; only applies to the button style
-icon_type: pencil        # pencil | doc | branch | folder | custom | none
+icon_type: pencil        # pencil | doc | branch | folder | svg-icons | custom | none
+icon_name: ""           # icon path for SVG Icons plugin (e.g. tabler/pencil.svg); used only when icon_type is svg-icons
 icon_custom: ""          # full SVG or inner path content; used only when icon_type is custom
 page_types: []           # empty = all types; e.g. [default, post]
 git_repository_url: ""  # optional: override the repository URL from Git Sync; e.g. https://github.com/user/repo
