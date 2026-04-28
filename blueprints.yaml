@@ -31,7 +31,7 @@ form:
     link_mode:
       type: select
       label: Link Mode
-      default: edit
+      default: view
       options:
         edit: "Edit page in Git repository"
         view: "View page in Git repository"

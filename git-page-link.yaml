@@ -1,7 +1,7 @@
 enabled: true
 link_text: "Edit this Page"
 link_title: ""           # tooltip text (title attribute); empty = no tooltip
-link_mode: edit          # edit | view | repo
+link_mode: view          # edit | view | repo
 link_position: bottom    # top | bottom | both
 link_new_tab: true       # open link in a new browser tab
 link_style: plain        # button | plain

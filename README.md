@@ -61,7 +61,7 @@ git-page-link:
 | Setting | Default | Description |
 |---------|---------|-------------|
 | Plugin Status | Enabled | Enable or disable the plugin |
-| Link Mode | Edit page | Where the link points: edit the page file, view the page file, or view the repository root |
+| Link Mode | View page | Where the link points: edit the page file, view the page file, or view the repository root |
 | Link Label | Edit this Page | Text displayed on the link |
 | Link Tooltip | _(empty)_ | Tooltip shown on hover (`title` attribute); leave empty for no tooltip |
 | Link Position | Bottom | Where the link appears: Top, Bottom, or Both |
