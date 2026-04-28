@@ -8,7 +8,7 @@
 
 </div>
 
-For open authoring and OER workflows – pairs with the [Git Sync plugin](https://github.com/trilbymedia/grav-plugin-git-sync) to add a link to Grav pages that connects visitors directly to the content Git repository, either to the page's source Markdown file or to the repository root. A single link serves both audiences: contributors with repository access land on the edit interface, while everyone else sees the file in the repository viewer – making it easy to invite readers to suggest edits, view page source, or access the raw Markdown files for reuse and adaptation. GitHub, Codeberg, and other Git-compatible hosting services are supported.
+For open authoring and OER workflows – adds a link to Grav pages that connects visitors directly to the content Git repository on GitHub, Codeberg, or any other Git host, either to the page's source Markdown file or to the repository root. Pairs with the [Git Sync plugin](https://github.com/trilbymedia/grav-plugin-git-sync) for automatic repository detection, or configure the repository URL and branch manually without Git Sync. A single link serves both audiences: contributors with repository access land on the edit interface, while everyone else sees the file in the repository viewer – making it easy to invite readers to suggest edits, view page source, or access the raw Markdown files for reuse and adaptation.
 
 This plugin is the successor to the "View/Edit Page in Git Repository" feature originally built into the [Open Publishing Space](https://github.com/hibbitts-design/grav-skeleton-open-publishing-space) skeleton – extracting that capability from the Quark Open Publishing theme into a standalone plugin compatible with a wide range of existing Grav themes, including Quark2.
 
