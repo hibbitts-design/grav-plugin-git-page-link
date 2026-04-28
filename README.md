@@ -21,7 +21,7 @@ This plugin is the successor to the "View/Edit Page in Git Repository" feature o
 - Displays a built-in pencil, document, Git branch, or folder SVG icon, a custom SVG, or no icon
 - Optionally opens in a new tab, or defers to the browser default or the External Links plugin
 - Restricts display to specific page templates; leave the Page Types setting empty to show on all pages
-- Repository URL is auto-detected from Git Sync, with an optional override for non-standard setups
+- Repository URL is auto-detected from Git Sync, or set manually in the Advanced settings if Git Sync is not in use
 - Silently omits the link if no repository URL is available from Git Sync or the Advanced settings
 
 ## Requirements
