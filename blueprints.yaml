@@ -10,6 +10,8 @@ homepage: https://github.com/hibbitts-design/grav-plugin-git-page-link
 keywords: git, edit, view, github, codeberg, link, git-sync
 bugs: https://github.com/hibbitts-design/grav-plugin-git-page-link/issues
 license: MIT
+compatibility:
+  grav: ['1.7', '2.0']
 
 dependencies:
   - { name: grav, version: '>=1.7.0' }
