@@ -1,5 +1,5 @@
 # v0.9.1
-## 05-06-2026
+## 06-05-2026
 
 1. [](#improved)
     * Better align descriptions and tagline with bopen authoring/OER positioning
