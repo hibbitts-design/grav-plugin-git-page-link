@@ -1,5 +1,11 @@
+# v0.9.2
+## 05-21-2026
+
+1. [](#bugfix)
+    * Fix link missing on prev/next navigation due to page content caching
+
 # v0.9.1
-## 06-05-2026
+## 05-06-2026
 
 1. [](#improved)
     * Better align descriptions and tagline with bopen authoring/OER positioning
@@ -9,7 +15,7 @@
     * Add demo link
 
 # v0.9.0
-## 26-04-2026
+## 04-26-2026
 
 1. [](#new)
     * ChangeLog started...
