@@ -1,3 +1,9 @@
+# v0.9.3
+## XX/XX/2026
+
+1. [](#bugfix)
+    * Fix ChangeLog formating
+
 # v0.9.2
 ## 05/21/2026
 
