@@ -45,11 +45,9 @@ class GitPageLinkPlugin extends Plugin
 
     public function onPageContentProcessed(Event $event): void
     {
-        $page        = $event['page'];
-        $currentPage = $this->grav['page'];
+        $page = $event['page'];
 
-        // Only inject on the page actually being routed and displayed.
-        if (!$page || !$currentPage || $page->route() !== $currentPage->route()) {
+        if (!$page) {
             return;
         }
 
