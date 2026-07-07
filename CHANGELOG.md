@@ -1,8 +1,9 @@
 # v0.9.3
-## XX/XX/2026
+## 07/07/2026
 
 1. [](#bugfix)
     * Fix ChangeLog formating
+    * Fix inconsistent Edit link on summary/list pages caused by per-page content caching
 
 # v0.9.2
 ## 05/21/2026
