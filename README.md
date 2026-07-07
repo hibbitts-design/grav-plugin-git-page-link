@@ -77,6 +77,11 @@ git-page-link:
 
 > **Note:** On GitHub, the edit mode URL redirects unauthenticated visitors to a fork-and-propose-changes flow — ideal for open authoring. On GitLab, Codeberg, Gitea, and Forgejo, edit URLs redirect unauthenticated users to a login page; use **View page** mode for publicly accessible links on those platforms.
 
+## Known Limitations
+
+- Requires classic (regular) Grav pages; not currently supported on sites using Flex Pages for page content
+- Disables Grav's per-page content cache on pages where the link can appear, so Markdown (and, if `never_cache_twig` is disabled, Twig) reprocesses on every page load rather than being cached to disk
+
 ## Credits
 
 Developed by [HibbittsDesign.org](https://hibbittsdesign.org) with the assistance of [Claude Code](https://claude.ai/claude-code).

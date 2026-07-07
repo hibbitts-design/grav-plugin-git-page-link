@@ -23,9 +23,26 @@ class GitPageLinkPlugin extends Plugin
         }
 
         $this->enable([
+            'onPageProcessed'        => ['onPageProcessed', 0],
             'onPageContentProcessed' => ['onPageContentProcessed', 0],
             'onTwigSiteVariables'    => ['onTwigSiteVariables', 0],
         ]);
+    }
+
+    /**
+     * Grav's per-page content cache has no notion of "current route", so whichever
+     * context first calls content() freezes the link decision for everyone else.
+     * Disabling it here forces onPageContentProcessed to re-check every request.
+     */
+    public function onPageProcessed(Event $event): void
+    {
+        $page = $event['page'];
+
+        if (!$this->shouldShowLink($page)) {
+            return;
+        }
+
+        $page->header()->cache_enable = false;
     }
 
     public function onTwigSiteVariables(): void
@@ -45,9 +62,11 @@ class GitPageLinkPlugin extends Plugin
 
     public function onPageContentProcessed(Event $event): void
     {
-        $page = $event['page'];
+        $page        = $event['page'];
+        $currentPage = $this->grav['page'];
 
-        if (!$page) {
+        // Only inject on the page actually being routed, not teasers/related/prev-next.
+        if (!$page || !$currentPage || $page->route() !== $currentPage->route()) {
             return;
         }
 
