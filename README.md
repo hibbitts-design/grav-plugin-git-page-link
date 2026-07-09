@@ -21,6 +21,7 @@ This plugin is the successor to the "View/Edit Page in Git Repository" feature o
 - Displays a built-in pencil, document, Git branch, or folder SVG icon, any icon from the SVG Icons plugin, a custom SVG, or no icon
 - Optionally opens in a new tab, or defers to the browser default or the External Links plugin
 - Restricts display to specific page templates; leave the Page Types setting empty to show on all pages
+- On the Quark, Quark2, and Typhoon themes, skips collection/list pages with a hero image (e.g. a blog index) by default, since these themes either render the content inside the hero banner or don't render it at all; enable Show on Collection/List Pages to show it at the top/bottom of the content area instead, or explicitly list the template in Show on Page Types
 - Repository URL is auto-detected from Git Sync, or set manually in the Advanced settings if Git Sync is not in use
 - Silently omits the link if no repository URL is available from Git Sync or the Advanced settings
 
@@ -71,7 +72,8 @@ git-page-link:
 | Link Icon | Pencil | Icon shown beside the link label: Pencil, Document, Git branch, Folder, SVG Icons plugin, Custom SVG, or None |
 | SVG Icons Plugin Icon Name | _(empty)_ | Icon path from the SVG Icons plugin (e.g. `tabler/pencil.svg`, `heroicons/outline/pencil-square.svg`); used only when Link Icon is set to SVG Icons plugin; falls back to the built-in pencil if the plugin is not installed or the icon is not found |
 | Custom SVG | _(empty)_ | Full `<svg>` element or inner path content; used only when Link Icon is set to Custom SVG |
-| Show on Page Types | _(empty)_ | Restrict the link to specific page templates; leave empty to show on all pages |
+| Show on Page Types | _(empty)_ | Restrict the link to specific page templates; leave empty to show on all pages. Explicitly listing a template here takes precedence over Show on Collection/List Pages below |
+| Show on Collection/List Pages | Disabled | On Quark, Quark2, and Typhoon, show the link on collection/list pages with a hero image (e.g. a blog index), near the top/bottom of the content instead of the hero; disabled by default |
 | Custom Repository URL | _(empty)_ | Override the repository URL from Git Sync, or set manually if Git Sync is not in use; leave empty to use Git Sync automatically |
 | Custom Branch | _(empty)_ | Override the branch from Git Sync, or set manually if Git Sync is not in use; leave empty to use Git Sync automatically |
 

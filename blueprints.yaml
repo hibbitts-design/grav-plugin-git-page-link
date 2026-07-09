@@ -1,5 +1,5 @@
 name: Git Page Link
-version: 0.9.3
+version: 0.9.4
 description: Enable open authoring and OER workflows by linking Grav pages directly to editable Markdown source files in GitHub, Codeberg, and other Git hosts. Works with or without the Git Sync plugin.
 icon: link
 author:
@@ -124,7 +124,19 @@ form:
     page_types:
       type: array
       label: Show on Page Types
-      help: "Leave empty to show on all page types"
+      help: "Leave empty to show on all page types. Explicitly listing a template here takes precedence over Show on Collection/List Pages below."
+
+    show_on_collection_pages:
+      type: toggle
+      label: Show on Collection/List Pages
+      help: "On Quark, Quark2, and Typhoon, collection/list pages with a hero image (e.g. a blog index) are skipped by default, since these themes don't place the link there predictably. Enable to show it near the top/bottom of the content instead."
+      highlight: 0
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
 
     section_advanced:
       type: section

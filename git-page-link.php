@@ -26,6 +26,7 @@ class GitPageLinkPlugin extends Plugin
             'onPageProcessed'        => ['onPageProcessed', 0],
             'onPageContentProcessed' => ['onPageContentProcessed', 0],
             'onTwigSiteVariables'    => ['onTwigSiteVariables', 0],
+            'onOutputGenerated'      => ['onOutputGenerated', 0],
         ]);
     }
 
@@ -74,6 +75,13 @@ class GitPageLinkPlugin extends Plugin
             return;
         }
 
+        // Hero-content pages get the link injected into the final HTML output instead
+        // (see onOutputGenerated) — mutating raw content here would still end up inside
+        // the hero banner on these themes.
+        if ($this->isHeroContentPage($page)) {
+            return;
+        }
+
         $config = $this->mergeConfig($page);
         $url    = $this->buildGitUrl($page, $config);
         if (!$url) {
@@ -93,6 +101,143 @@ class GitPageLinkPlugin extends Plugin
             default: // bottom
                 $page->setRawContent($content . $linkHtml);
         }
+    }
+
+    /**
+     * Hero-content pages (see isHeroContentPage()) never get the link injected into raw
+     * content, so it's added here instead, directly into the rendered HTML, positioned at
+     * the top/bottom of the main content section rather than inside the hero banner.
+     */
+    public function onOutputGenerated(Event $event): void
+    {
+        $page = $event['page'];
+
+        if (!$this->shouldShowLink($page) || !$this->isHeroContentPage($page)) {
+            return;
+        }
+
+        $anchors = $this->getOutputAnchors();
+        if (!$anchors) {
+            return;
+        }
+
+        $config = $this->mergeConfig($page);
+        $url    = $this->buildGitUrl($page, $config);
+        if (!$url) {
+            return;
+        }
+
+        $linkHtml = $this->renderLink($url, $config);
+        $position = $config->get('link_position', 'bottom');
+
+        // Read and write the same property Grav's renderer actually echoes. The array-access
+        // form ($this->grav['output']) resolves through Pimple, which memoises its result on
+        // first access elsewhere in the request — it would not reflect any changes another
+        // plugin's onOutputGenerated listener already made to the live output before this runs.
+        $output = (string) $this->grav->output;
+
+        // On themes that scope link colour/decoration to a content wrapper class (e.g.
+        // Typhoon's Tailwind Typography "prose" styles), the plain-style link falls back to
+        // an unstyled default colour outside of it — wrap it in the same class so it matches.
+        if ($anchors['wrapper_class'] !== '') {
+            $linkHtml = '<div class="' . $anchors['wrapper_class'] . '">' . $linkHtml . '</div>';
+        }
+
+        // If a theme update ever changes the markup these patterns rely on, none of the
+        // anchors below will match — falling back to right before </body> guarantees the
+        // link still appears somewhere on the page, rather than silently vanishing.
+        $lastResort = '/<\/body>/i';
+
+        if ($position === 'top' || $position === 'both') {
+            // Insert inside the main content wrapper (picking up the same horizontal
+            // padding/alignment as the rest of the content) and after the breadcrumb nav
+            // when present, matching where it lands on interior pages.
+            $output = $this->insertAfterMatch($output, $anchors['top'], $linkHtml)
+                ?? $this->insertBeforeMatch($output, $lastResort, $linkHtml)
+                ?? $output;
+        }
+
+        if ($position !== 'top') {
+            // Insert right before pagination, matching where the link lands above the
+            // Previous/Next Post nav on interior pages — falling back to just before the
+            // sidebar when there's no pagination to anchor on.
+            $output = $this->insertBeforeMatch($output, $anchors['bottom_primary'], $linkHtml)
+                ?? $this->insertBeforeMatch($output, $anchors['bottom_fallback'], $linkHtml)
+                ?? $this->insertBeforeMatch($output, $lastResort, $linkHtml)
+                ?? $output;
+        }
+
+        $this->grav->output = $output;
+    }
+
+    /**
+     * Inserts $linkHtml right after the first match of $pattern in $output.
+     * Returns null (instead of the input unchanged) if the pattern didn't match, or if the
+     * regex engine itself failed (e.g. hit its backtrack limit on a very large page) — either
+     * way, the caller knows to try a different pattern rather than risk losing $output.
+     */
+    private function insertAfterMatch(string $output, string $pattern, string $linkHtml): ?string
+    {
+        $result = preg_replace_callback(
+            $pattern,
+            static fn($m) => $m[0] . $linkHtml,
+            $output,
+            1,
+            $matchCount
+        );
+
+        return ($matchCount > 0 && $result !== null) ? $result : null;
+    }
+
+    /**
+     * Same as insertAfterMatch(), but places $linkHtml right before the match instead of after.
+     */
+    private function insertBeforeMatch(string $output, string $pattern, string $linkHtml): ?string
+    {
+        $result = preg_replace_callback(
+            $pattern,
+            static fn($m) => $linkHtml . $m[0],
+            $output,
+            1,
+            $matchCount
+        );
+
+        return ($matchCount > 0 && $result !== null) ? $result : null;
+    }
+
+    /**
+     * HTML anchor patterns for the hero-content output-stage injection, one set per
+     * supported theme — each theme lays out its collection/list template differently, so
+     * there's no single generic set of anchors that works everywhere.
+     */
+    private function getOutputAnchors(): ?array
+    {
+        $activeTheme = $this->getActiveTheme();
+
+        // Two known breadcrumb markups in play: Quark2's own <nav> override, and the
+        // breadcrumbs plugin's default <div id="breadcrumbs"> (used by Quark v1, Typhoon,
+        // and any theme without its own override). Tried as alternatives, both optional.
+        $breadcrumb = '(?:\s*(?:<nav aria-label="Breadcrumb">[\s\S]*?<\/nav>|<div id="breadcrumbs"[^>]*>[\s\S]*?<\/div>))?';
+
+        return match ($activeTheme) {
+            // Quark v1 nests a <section class="container ..."> where Quark2 uses a plain
+            // <div class="container">; Quark v1's sidebar is a <div>, Quark2's is an <aside>.
+            'quark', 'quark2' => [
+                'top'             => '/<section id="body-wrapper"[^>]*>\s*<(?:div|section) class="container[^"]*">' . $breadcrumb . '/',
+                'bottom_primary'  => '/<div id="listing-footer">/',
+                'bottom_fallback' => '/<(?:div|aside) id="sidebar"[^>]*>/',
+                'wrapper_class'   => '',
+            ],
+            'typhoon' => [
+                'top'             => '/<div class="pt-(?:0|16)">' . $breadcrumb . '/',
+                'bottom_primary'  => '/<div class="flex justify-center w-full p-6 mx-auto">/',
+                'bottom_fallback' => '/<div id="sidebar"[^>]*>/',
+                // Matches the theme's own `prose_style` variable, so link colour/hover
+                // states match what the theme applies to normal page content.
+                'wrapper_class'   => 'prose md:prose-md dark:prose-invert max-w-none',
+            ],
+            default => null,
+        };
     }
 
     // -------------------------------------------------------------------------
@@ -124,7 +269,45 @@ class GitPageLinkPlugin extends Plugin
             return false;
         }
 
+        // Explicitly allow-listing a template is a stronger signal than the collection-page
+        // heuristic below, so it takes precedence over it — but an empty (all-types) list
+        // doesn't count as explicit consent for this specific page.
+        $explicitlyAllowed = $allowed !== [] && in_array($page->template(), $allowed, true);
+
+        if (!$explicitlyAllowed && $this->isHeroContentPage($page) && !$config->get('show_on_collection_pages', false)) {
+            return false;
+        }
+
         return true;
+    }
+
+    private function getActiveTheme(): string
+    {
+        return (string) $this->grav['config']->get('system.pages.theme', '');
+    }
+
+    /**
+     * On Quark, Quark2, and Typhoon, a collection page's list template either renders the raw
+     * content directly inside the hero banner (Quark/Quark2, when a hero image is set) or
+     * never renders it at all (Typhoon, which drives its hero entirely from a separate `hero:`
+     * frontmatter block). Either way, an injected link would never land in the normal page
+     * body. Scoped to these known-affected themes rather than applied globally, since most
+     * themes render content normally.
+     */
+    private function isHeroContentPage($page): bool
+    {
+        $activeTheme = $this->getActiveTheme();
+
+        $collectionItems = (array) ($page->header()->content ?? []);
+        if (empty($collectionItems['items'])) {
+            return false;
+        }
+
+        return match ($activeTheme) {
+            'quark', 'quark2' => !empty($page->header()->hero_image),
+            'typhoon'         => !empty(((array) ($page->header()->hero ?? []))['image']),
+            default           => false,
+        };
     }
 
     /**
