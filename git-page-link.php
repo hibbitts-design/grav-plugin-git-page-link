@@ -219,19 +219,27 @@ class GitPageLinkPlugin extends Plugin
         // and any theme without its own override). Tried as alternatives, both optional.
         $breadcrumb = '(?:\s*(?:<nav aria-label="Breadcrumb">[\s\S]*?<\/nav>|<div id="breadcrumbs"[^>]*>[\s\S]*?<\/div>))?';
 
+        // The content column and the sidebar sit side by side as flex siblings, not stacked
+        // — inserting right before the sidebar's opening tag would make the link the
+        // sidebar's first child, which renders at the TOP of that column, not the bottom of
+        // the page. Inserting before the content column's own closing </div> (the one
+        // immediately followed by the sidebar) keeps it inside the content column instead.
+        $beforeSidebarDiv  = '(?=\s*<div id="sidebar"[^>]*>)';
+        $beforeSidebarNode = '(?=\s*<(?:div|aside) id="sidebar"[^>]*>)';
+
         return match ($activeTheme) {
             // Quark v1 nests a <section class="container ..."> where Quark2 uses a plain
             // <div class="container">; Quark v1's sidebar is a <div>, Quark2's is an <aside>.
             'quark', 'quark2' => [
                 'top'             => '/<section id="body-wrapper"[^>]*>\s*<(?:div|section) class="container[^"]*">' . $breadcrumb . '/',
                 'bottom_primary'  => '/<div id="listing-footer">/',
-                'bottom_fallback' => '/<(?:div|aside) id="sidebar"[^>]*>/',
+                'bottom_fallback' => '/<\/div>' . $beforeSidebarNode . '/',
                 'wrapper_class'   => '',
             ],
             'typhoon' => [
                 'top'             => '/<div class="pt-(?:0|16)">' . $breadcrumb . '/',
                 'bottom_primary'  => '/<div class="flex justify-center w-full p-6 mx-auto">/',
-                'bottom_fallback' => '/<div id="sidebar"[^>]*>/',
+                'bottom_fallback' => '/<\/div>' . $beforeSidebarDiv . '/',
                 // Matches the theme's own `prose_style` variable, so link colour/hover
                 // states match what the theme applies to normal page content.
                 'wrapper_class'   => 'prose md:prose-md dark:prose-invert max-w-none',
