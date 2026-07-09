@@ -1,3 +1,9 @@
+# v0.9.5
+## 07/09/2026
+
+1. [](#bugfix)
+    * Fix bottom-fallback link landing at the top of the sidebar instead of the bottom of content
+
 # v0.9.4
 ## 07/09/2026
 
