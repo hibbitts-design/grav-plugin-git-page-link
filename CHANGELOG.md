@@ -1,3 +1,9 @@
+# v0.9.4
+## 07/09/2026
+
+1. [](#bugfix)
+    * Add Quark/Quark2/Typhoon collection-page support with hero-safe link placement
+
 # v0.9.3
 ## 07/07/2026
 
